@@ -28,6 +28,7 @@ Plugin 'javascript-libraries-syntax'
 Plugin 'Syntastic'
 Plugin 'surround.vim'
 Plugin 'camelcasemotion'
+Plugin 'kristijanhusak/vim-hybrid-material'
 
 call vundle#end()
 filetype pluginindent on
@@ -51,6 +52,10 @@ let g:ctrlp_use_caching=0
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" Eclim
+" make YCM compatible with eclim
+let g:EclimCompletionMethod = 'omnifunc'
 
 " Ack
 " Mapping :Ack command
@@ -90,7 +95,7 @@ set nowrap
 syntax on
 
 set foldmethod=syntax
-set foldcolumn=4
+"set foldcolumn=4
 
 let php_folding=1
 
@@ -106,7 +111,8 @@ augroup END
 " Color schemes
 set background=dark
 set t_Co=256
-colorscheme alduin
+colorscheme hybrid_material
+"colorscheme alduin
 "colorscheme hybrid
 ""colorscheme off
 
