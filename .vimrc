@@ -36,7 +36,8 @@ filetype pluginindent on
 " Plugins
 
 " NERDTree
-:nnoremap <leader>d :NERDTreeToggle<cr>
+":nnoremap <leader>d :NERDTreeToggle<cr>
+:nnoremap <D-1> :NERDTreeToggle<cr>
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
@@ -81,6 +82,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 
+let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["tex"]}
+
 " End plugins
 
 " Setting target directories for backup, swap and undo
@@ -109,7 +112,7 @@ augroup END
 :command! -nargs=* -complete=shellcmd R new | res 10 | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
 " Color schemes
-set background=dark
+set background=light
 set t_Co=256
 colorscheme hybrid_material
 "colorscheme alduin
@@ -192,6 +195,10 @@ augroup filetype_java
     " compile and run, assumes that a source and a bin folder is used and that
     " vim is run from the source folder.
     autocmd FileType java nnoremap <leader>run :R mkdir -p ../bin/ && javac -d ../bin/ main/Main.java && cd ../bin/ && java main/Main<cr>
+    " eclim
+    autocmd FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+    autocmd FileType java nnoremap <leader>run :Java<cr>
+    autocmd FileType java nnoremap <leader>jn :JavaNew class<space>
 augroup END 
 
 " LaTex
