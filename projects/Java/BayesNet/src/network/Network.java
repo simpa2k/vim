@@ -14,7 +14,7 @@ public class Network {
         this.nodes = nodes;
     }
 
-    public void addValues(double[] values) {
+    public void addValues(Double[] values) {
 
         boolean duplicateRows = getOutput(values) == null ? true : false;
 
@@ -24,26 +24,40 @@ public class Network {
 
     }
 
-    public HashSet<Double> getOutput(double[] values) throws IllegalArgumentException {
+    public HashSet<Double> getOutput(Double[] values) throws IllegalArgumentException {
 
         if (values.length > nodes.length) {
             throw new IllegalArgumentException("The array of values passed must be of a length equal to or lower than the number of nodes.");
         }
 
-        HashSet<Double> retrievedValues = new HashSet<>();
+        ArrayList<HashSet<Double>> retrievedValues = new ArrayList<>();
 
         for (int i = 0; i < values.length; i++) {
 
-            ArrayList<Double> nodeOutput = nodes[i].getOutput(values[i]);
+            if(values[i] != null) {
+                ArrayList<Double> nodeOutput = nodes[i].getOutput(values[i]);
 
-            if (nodeOutput.isEmpty()) {
-                return null;
-            } else {
-                retrievedValues.addAll(nodeOutput);
+                if (nodeOutput.isEmpty()) {
+                    return null;
+                } else {
+                    retrievedValues.add(new HashSet<>(nodeOutput));
+                    //retrievedValues.addAll(nodeOutput);
+                }
             }
         }
 
-        return retrievedValues;
+        HashSet<Double> lastSet = null;
+        for (HashSet<Double> set : retrievedValues) {
+
+            if (lastSet == null) {
+                lastSet = set;
+            } else {
+                lastSet.retainAll(set);
+            }
+
+        }
+
+        return lastSet;
     }
 
     /*
