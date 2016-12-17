@@ -62,10 +62,13 @@ public class Node {
      * the measurement is already in the table.
      *
      * @param measurement The value to be added to the table.
-     * @param duplicateRows Boolean value indicating whether to add the measurement on a new row even if the value already exists in the table.
-     * This is determined by the network and is needed if some other node in the table does not contain the value passed to it during the same run, thus resulting
-     * in the value being added to a new row in that node's table.
-     * This makes sure that values in a node's table always map to the correct values in different node tables, by virtue of being stored on the same row indices. See the documentation on getOutput.
+     * @param duplicateRows Boolean value indicating whether to add the measurement on 
+     * a new row even if the value already exists in the table. This is determined by 
+     * the network and is needed if some other node in the table does not contain the 
+     * value passed to it during the same run, thus resulting in the value being added 
+     * to a new row in that node's table. This makes sure that values in a node's table always 
+     * map to the correct values in different node tables, by virtue of being 
+     * stored on the same row indices. See the documentation on getOutput.
      */
     public void updateTable(double measurement, boolean duplicateRows) {
 
@@ -104,7 +107,8 @@ public class Node {
      * set of values, removes it and passes the rest down the network.
      *
      * @param values The set of values to be added.
-     * @param duplicateRows Boolean value indicating whether to add the measurement on a new row even if the value already exists in the table. See the documentation on updateTable.
+     * @param duplicateRows Boolean value indicating whether to add the measurement on a new row even if the 
+     * value already exists in the table. See the documentation on updateTable for more details.
      */
     protected double[] addValues(double[] values, boolean duplicateRows) {
 
@@ -143,10 +147,12 @@ public class Node {
     }
 
     /**
-     * Method for getting the result of a given measurement. Works by picking out all the rows that the given value
-     * occurs on in the node getOutput is called on and then going through the whole network to the bottommost child node
-     * and picking out the values on the corresponding rows. This means that the method assumes that there is a correspondence
-     * between all the rows of a table. If, for example, the measurement 56 resulted in 0.22 these two values need to be stored
+     * Method for getting the result of a given measurement. Works by picking out all 
+     * the rows that the given value occurs on in the node getOutput is called on and 
+     * then going through the whole network to the bottommost child node and picking out 
+     * the values on the corresponding rows. This means that the method assumes that there 
+     * is a correspondence between all the rows of a table. If, for example, the 
+     * measurement 56 resulted in 0.22 these two values need to be stored
      * on the same rows in the nodes they belong to.
      *
      * @param value The value to get the result of.

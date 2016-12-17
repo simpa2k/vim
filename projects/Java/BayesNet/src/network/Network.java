@@ -35,7 +35,8 @@ public class Network {
      * If they do, the probability of them occuring is updated, if they do not
      * the set is added to the network.
      *
-     * @param values A set of values to be added to the network. The values need to be ordered in the exact same way as the nodes in the network are structured. If
+     * @param values A set of values to be added to the network. The values need to be 
+     * ordered in the exact same way as the nodes in the network are structured. If
      * certain input values are unknown they should be set to null.
      */
     public void addValues(Double[][] values) {
@@ -54,7 +55,8 @@ public class Network {
     /**
      * Method for running a set of values through the network and get the value(s) they resulted in.
      *
-     * @param values A set of values to be run through the network. The values need to be ordered in the exact way as the nodes in the network are structured. If
+     * @param values A set of values to be run through the network. The values need to be 
+     * ordered in the exact way as the nodes in the network are structured. If
      * certain input values are unknown they should be set to null.
      */
     public HashSet<Double> getOutput(Double[][] values) throws IllegalArgumentException {
