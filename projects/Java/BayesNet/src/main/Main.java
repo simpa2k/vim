@@ -8,7 +8,7 @@ import network.Node;
  */
 public class Main {
 
-    private Node[] createNodes() {
+    private Node[][] createNodes() {
 
         Node windSpeed = new Node("Wind Speed", 5, 4);
         Node soilMoistureBefore = new Node("Soil Moisture, before", 5, 4);
@@ -18,31 +18,11 @@ public class Main {
 
         Node soilMoistureAfter = new Node("Soil Moisture, after", 5, 4);
 
-        /*
-        ToDo: Move connection of nodes back inside Network again. The array passed to its constructor should be two-dimensional, modelling the layers which form the basis for connections.
-         */
-        soilMoistureAfter.setParents(new Node[] {irrigate});
-        irrigate.setChildren(new Node[] {soilMoistureAfter});
-
-        irrigate.setParents(new Node[] {windSpeed, soilMoistureBefore, uvLight});
-
-        windSpeed.setChildren(new Node[] {irrigate});
-        soilMoistureBefore.setChildren(new Node[] {irrigate});
-        uvLight.setChildren(new Node[] {irrigate});
-
-        Node[] nodes = new Node[5];
-
-        String[][] nodeLayers = new String[][] {
-                {"Wind Speed", "Soil Moisture, before", "UV Light"},
-                {"Irrigate"},
-                {"Soil Moisture, after"}
+        Node[][] nodes = new Node[][] {
+            {windSpeed, soilMoistureBefore, uvLight},
+            {irrigate},
+            {soilMoistureAfter}
         };
-
-        nodes[0] = windSpeed;
-        nodes[1] = soilMoistureBefore;
-        nodes[2] = uvLight;
-        nodes[3] = irrigate;
-        nodes[4] = soilMoistureAfter;
 
         return nodes;
 
@@ -53,18 +33,18 @@ public class Main {
         Main main = new Main();
         Network network = new Network(main.createNodes());
 
-        Double[] values = new Double[] {56.0, 0.22, 3.0, 1.0, 0.26};
+        Double[][] values = new Double[][] {{56.0, 0.22, 3.0}, {1.0}, {0.26}};
         network.addValues(values);
 
-        values = new Double[] {56.0, 0.22, 3.0, 1.0, 0.26};
+        values = new Double[][] {{56.0, 0.22, 3.0}, {1.0}, {0.26}};
         network.addValues(values);
 
-        values = new Double[] {56.0, 0.26, 4.0, 0.0, 0.28};
+        values = new Double[][] {{56.0, 0.22, 4.0}, {0.0}, {0.28}};
         network.addValues(values);
 
         System.out.println(network);
 
-        System.out.println(network.getOutput(new Double[] {56.0, 0.22}));
+        System.out.println(network.getOutput(new Double[][] {{}, {0.0}}));
 
     }
 }

@@ -41,10 +41,6 @@ public class Node {
         this.children = children;
     }
 
-    public void put(int row, int column, double value) {
-        table[row][column] = value;
-    }
-
     private void addNewRow(double measurement, boolean duplicateRows) {
 
         table[currentRow][MEASUREMENT] = measurement;
@@ -90,10 +86,6 @@ public class Node {
             addNewRow(measurement, duplicateRows);
         }
 
-    }
-
-    public double get(int row, int column) {
-        return table[row][column];
     }
 
     protected double[] addValues(double[] values, boolean duplicateRows) {
@@ -156,27 +148,6 @@ public class Node {
         }
 
         return results;
-
-    }
-
-    public boolean search(double value) {
-
-        for (int i = 0; i < table.length; i++) {
-
-            if (table[i][MEASUREMENT] != null && table[i][MEASUREMENT] == value) {
-                return true;
-            }
-        }
-
-        if(children.length > 0) {
-
-            for (Node child : children) {
-                child.search(value);
-            }
-
-        }
-
-        return false;
 
     }
 
