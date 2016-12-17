@@ -1,6 +1,5 @@
 package network;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,13 +22,11 @@ public class Node {
     private int currentRow = 0;
     private double dataPoints = 0;
 
-    private boolean duplicateRows;
-
-    public Node(String name, int rows, int columns, boolean duplicateRows) {
+    public Node(String name, int rows, int columns) {
 
         this.name = name;
         table = new Double[rows][columns];
-        this.duplicateRows = duplicateRows;
+
     }
 
     public String getName() {
@@ -99,7 +96,7 @@ public class Node {
         return table[row][column];
     }
 
-    protected double[] backPropagate(double[] values) {
+    protected double[] addValues(double[] values, boolean duplicateRows) {
 
         if(values.length > 0) {
 
@@ -107,8 +104,8 @@ public class Node {
 
             values = Arrays.copyOfRange(values, 1, values.length);
 
-            for (int i = 0; i < parents.length; i++) {
-                values = parents[i].backPropagate(values);
+            for (int i = 0; i < children.length; i++) {
+                values = children[i].addValues(values, duplicateRows);
             }
         }
 
@@ -130,22 +127,12 @@ public class Node {
         return rows;
     }
 
-    /*
-    This method and feedForward currently only work properly
-    while duplicateRows = true;
-     */
-
     protected ArrayList<Double> getOutput(double value) {
 
         ArrayList<Integer> rows = getAll(value);
         return feedForward(rows);
 
     }
-
-    /*
-    This method and getOutput currently only work properly
-    while duplicateRows = true;
-     */
 
     protected ArrayList<Double> feedForward(ArrayList<Integer> rows) {
 
@@ -169,6 +156,27 @@ public class Node {
         }
 
         return results;
+
+    }
+
+    public boolean search(double value) {
+
+        for (int i = 0; i < table.length; i++) {
+
+            if (table[i][MEASUREMENT] != null && table[i][MEASUREMENT] == value) {
+                return true;
+            }
+        }
+
+        if(children.length > 0) {
+
+            for (Node child : children) {
+                child.search(value);
+            }
+
+        }
+
+        return false;
 
     }
 

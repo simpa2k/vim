@@ -11,16 +11,21 @@ public class Main {
 
         Network network = new Network(true);
 
-        double[] values = new double[] {0.26, 1.0, 56, 0.22};
-        network.backPropagate(values);
+        double[] values = new double[] {56, 0.22, 3, 1.0, 0.26};
+        network.addValues(values);
 
         System.out.println(network);
 
-        values = new double[] {0.28, 1.0, 56, 0.26};
-        network.backPropagate(values);
+        values = new double[] {56, 0.22, 3, 1.0, 0.26};
+        network.addValues(values);
 
         System.out.println(network);
 
-        System.out.println(network.getOutput(new double[] {57}));
+        values = new double[] {56, 0.26, 4, 1.0, 0.28};
+        network.addValues(values);
+
+        System.out.println(network);
+
+        //System.out.println(network.getOutput(new double[] {56}));
     }
 }
