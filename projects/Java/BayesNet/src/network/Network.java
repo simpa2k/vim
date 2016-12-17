@@ -57,6 +57,10 @@ public class Network {
 
             for (int value = 0; value < values[layer].length; value++) {
 
+                if(values[layer].length > nodes[layer].length) {
+                    throw new IllegalArgumentException("Each sub array of values must be of a length equal to or lower than the number of nodes in the corresponding network layer.");
+                }
+
                 if (values[layer][value] != null) {
                     ArrayList<Double> nodeOutput = nodes[layer][value].getOutput(values[layer][value]);
 
@@ -68,8 +72,11 @@ public class Network {
                 }
             }
         }
+        return intersect(retrievedValues);
+    }
 
-        // Take the intersection of all retrieved sets of values
+    private HashSet<Double> intersect(ArrayList<HashSet<Double>> retrievedValues) {
+
         HashSet<Double> lastSet = null;
         for (HashSet<Double> set : retrievedValues) {
 
@@ -80,7 +87,6 @@ public class Network {
             }
 
         }
-
         return lastSet;
     }
 
