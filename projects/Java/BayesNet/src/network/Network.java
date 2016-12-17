@@ -58,6 +58,10 @@ public class Network {
      * @param values A set of values to be run through the network. The values need to be 
      * ordered in the exact way as the nodes in the network are structured. If
      * certain input values are unknown they should be set to null.
+     * @return The intersection of the sets of output values found when running the 
+     * input values through the specified nodes. Taking the intersection makes sure that
+     * only the values that resulted from the exact specified combination of input values
+     * are returned.
      */
     public HashSet<Double> getOutput(Double[][] values) throws IllegalArgumentException {
 
@@ -92,7 +96,8 @@ public class Network {
     /**
      * Method for taking the intersection of a series of sets of values.
      *
-     * @param retrievedValues A list of sets containing the values to be intersected
+     * @param retrievedValues A list of sets containing the values to be intersected.
+     * @return The intersection of the provided sets of values.
      */
     private HashSet<Double> intersect(ArrayList<HashSet<Double>> retrievedValues) {
 

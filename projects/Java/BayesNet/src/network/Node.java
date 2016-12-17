@@ -109,6 +109,10 @@ public class Node {
      * @param values The set of values to be added.
      * @param duplicateRows Boolean value indicating whether to add the measurement on a new row even if the 
      * value already exists in the table. See the documentation on updateTable for more details.
+     * @return The values that were left after removing the one that the current node used. This makes sure
+     * that the provided set of values is truncated correctly when one or more nodes have several child nodes.
+     * If the set of values was not updated on each iteration over the child nodes, the fact that each child node
+     * removes a value would not be recognized.
      */
     protected double[] addValues(double[] values, boolean duplicateRows) {
 
@@ -131,6 +135,7 @@ public class Node {
      * Method for retrieving the indices of each row a given value occurs on in the node's table.
      *
      * @param value The value to retrieve the row indices of.
+     * @return The row indices the value was found on.
      */
     private ArrayList<Integer> getAll(double value) {
 
@@ -156,6 +161,7 @@ public class Node {
      * on the same rows in the nodes they belong to.
      *
      * @param value The value to get the result of.
+     * @return A list of the values that the given measurement resulted in.
      */
     protected ArrayList<Double> getOutput(double value) {
 
@@ -168,6 +174,7 @@ public class Node {
      * Method for travelling down the given node's children and pick out results stored on the specified rows.
      *
      * @param rows A list of all the rows that contain the relevant values.
+     * @return A list of the values contained on the rows specified.
      */
     protected ArrayList<Double> feedForward(ArrayList<Integer> rows) {
 
