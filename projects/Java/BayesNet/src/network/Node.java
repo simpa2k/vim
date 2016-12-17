@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by simpa2k on 2016-12-15.
+ * Class representing a node in a Bayesian network.
  */
 public class Node {
 
@@ -56,6 +56,17 @@ public class Node {
 
     }
 
+    /**
+     * Method for adding a value to the node's table. Updates the opportunities of all
+     * rows in the table and increments observations instead of adding a new row if
+     * the measurement is already in the table.
+     *
+     * @param measurement The value to be added to the table.
+     * @param duplicateRows Boolean value indicating whether to add the measurement on a new row even if the value already exists in the table.
+     * This is determined by the network and is needed if some other node in the table does not contain the value passed to it during the same run, thus resulting
+     * in the value being added to a new row in that node's table.
+     * This makes sure that values in a node's table always map to the correct values in different node tables, by virtue of being stored on the same row indices. See the documentation on getOutput.
+     */
     public void updateTable(double measurement, boolean duplicateRows) {
 
         dataPoints++;
@@ -88,6 +99,13 @@ public class Node {
 
     }
 
+    /**
+     * Method for adding a set of values to the node and its children. Picks out the first element in the
+     * set of values, removes it and passes the rest down the network.
+     *
+     * @param values The set of values to be added.
+     * @param duplicateRows Boolean value indicating whether to add the measurement on a new row even if the value already exists in the table. See the documentation on updateTable.
+     */
     protected double[] addValues(double[] values, boolean duplicateRows) {
 
         if(values.length > 0) {
@@ -105,6 +123,11 @@ public class Node {
 
     }
 
+    /**
+     * Method for retrieving the indices of each row a given value occurs on in the node's table.
+     *
+     * @param value The value to retrieve the row indices of.
+     */
     private ArrayList<Integer> getAll(double value) {
 
         ArrayList<Integer> rows = new ArrayList<>();
@@ -119,6 +142,15 @@ public class Node {
         return rows;
     }
 
+    /**
+     * Method for getting the result of a given measurement. Works by picking out all the rows that the given value
+     * occurs on in the node getOutput is called on and then going through the whole network to the bottommost child node
+     * and picking out the values on the corresponding rows. This means that the method assumes that there is a correspondence
+     * between all the rows of a table. If, for example, the measurement 56 resulted in 0.22 these two values need to be stored
+     * on the same rows in the nodes they belong to.
+     *
+     * @param value The value to get the result of.
+     */
     protected ArrayList<Double> getOutput(double value) {
 
         ArrayList<Integer> rows = getAll(value);
@@ -126,6 +158,11 @@ public class Node {
 
     }
 
+    /**
+     * Method for travelling down the given node's children and pick out results stored on the specified rows.
+     *
+     * @param rows A list of all the rows that contain the relevant values.
+     */
     protected ArrayList<Double> feedForward(ArrayList<Integer> rows) {
 
         ArrayList<Double> results = new ArrayList<>();
