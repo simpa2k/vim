@@ -62,6 +62,8 @@ public class Network {
      * input values through the specified nodes. Taking the intersection makes sure that
      * only the values that resulted from the exact specified combination of input values
      * are returned.
+     * @throws IllegalArgumentException If the length of the set of values passed exceeds that of the
+     * total number of layers in the network, or the number of nodes in a given layer of the network.
      */
     public HashSet<Double> getOutput(Double[][] values) throws IllegalArgumentException {
 
