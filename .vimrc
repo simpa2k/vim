@@ -29,11 +29,18 @@ Plugin 'Syntastic'
 Plugin 'surround.vim'
 Plugin 'camelcasemotion'
 Plugin 'kristijanhusak/vim-hybrid-material'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 call vundle#end()
 filetype pluginindent on
 
 " Plugins
+
+" Airline
+" let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='hybrid'
+set laststatus=2
 
 " NERDTree
 ":nnoremap <leader>d :NERDTreeToggle<cr>
@@ -42,7 +49,7 @@ filetype pluginindent on
 " CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-set wildignore+=*/bin/**
+set wildignore+=*/bin/**,node_modules
 let g:ctrlp_use_caching=0
 
 " YCM
@@ -112,7 +119,7 @@ augroup END
 :command! -nargs=* -complete=shellcmd R new | res 10 | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
 " Color schemes
-set background=light
+set background=dark
 set t_Co=256
 colorscheme hybrid_material
 "colorscheme alduin
@@ -154,6 +161,7 @@ endif
 :nnoremap <c-s> :w<cr>
 " Exiting insert mode and saving at the same time
 :inoremap <leader>w <esc>:w<cr>
+:nnoremap <leader>w :w<cr>
 
 " comment out line
 :nnoremap <s-c> 0wi//<esc>
@@ -166,6 +174,9 @@ endif
 " Open snippet file
 :nnoremap <leader>snip  :tabe /Users/simpa2k/.vim/bundle/vim-snippets/snippets/
 
+" Move line up or down
+:nnoremap <D-k> dd2kp
+:nnoremap <D-j> ddp
 
 "File type specific remappings
 
@@ -204,3 +215,9 @@ augroup END
 " LaTex
 " Tell vim to prefer LaTex where there is not enough information
 let g:tex_flavor = "latex"
+
+augroup filetype_tex
+    autocmd!
+    autocmd FileType tex set tw=150
+    autocmd FileType tex nnoremap <leader>fp vipgq
+augroup END
