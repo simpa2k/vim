@@ -76,7 +76,7 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-" Setting upp used libraries for javascript-libraries-syntax
+" Setting up used libraries for javascript-libraries-syntax
 let g:used_javascript_libs = 'jquery,angularjs,angularui,requirejs'
 
 " Syntastic
@@ -190,7 +190,7 @@ augroup END
 " Python
 augroup filetype_python
     autocmd!
-    :autocmd FileType python nnoremap <s-c> 0i#<esc>j 
+    :autocmd FileType python nnoremap <s-c> 0i#<esc>j
 augroup END
 
 " PHP
@@ -198,7 +198,7 @@ augroup filetype_php
     autocmd!
     " omnifunc completion
     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-augroup END 
+augroup END
 
 " Java
 augroup filetype_java
@@ -210,7 +210,7 @@ augroup filetype_java
     autocmd FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
     autocmd FileType java nnoremap <leader>run :Java<cr>
     autocmd FileType java nnoremap <leader>jn :JavaNew class<space>
-augroup END 
+augroup END
 
 " LaTex
 " Tell vim to prefer LaTex where there is not enough information
